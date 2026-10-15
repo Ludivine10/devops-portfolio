@@ -6,13 +6,19 @@ on:
     branches:
       - main
 
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
 jobs:
   check-website:
+    name: Check portfolio files
     runs-on: ubuntu-latest
 
     steps:
-      - name: Download repository files
-        uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v5
 
       - name: Check HTML file
         run: |
@@ -31,4 +37,3 @@ jobs:
             echo "ERROR: style.css is missing."
             exit 1
           fi
-
