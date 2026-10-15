@@ -5,7 +5,6 @@ on:
   push:
     branches:
       - main
-
   workflow_dispatch:
 
 permissions:
@@ -21,19 +20,12 @@ jobs:
         uses: actions/checkout@v5
 
       - name: Check HTML file
-        run: |
-          if [ -f index.html ]; then
-            echo "SUCCESS: index.html exists."
-          else
-            echo "ERROR: index.html is missing."
-            exit 1
-          fi
+        run: test -f index.html
 
       - name: Check CSS file
-        run: |
-          if [ -f style.css ]; then
-            echo "SUCCESS: style.css exists."
-          else
-            echo "ERROR: style.css is missing."
-            exit 1
-          fi
+        run: test -f style.css
+
+      - name: Validate HTML
+        uses: Cyb3r-Jak3/html5validator-action@v7.2.0
+        with:
+          html: index.html
