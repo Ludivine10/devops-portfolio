@@ -1,8 +1,11 @@
 
-name: Portfolio Website Check
+name: Portfolio CI Pipeline
 
 on:
   push:
+    branches:
+      - main
+  pull_request:
     branches:
       - main
   workflow_dispatch:
@@ -11,8 +14,8 @@ permissions:
   contents: read
 
 jobs:
-  check-website:
-    name: Check portfolio files
+  validate-website:
+    name: Validate website
     runs-on: ubuntu-latest
 
     steps:
