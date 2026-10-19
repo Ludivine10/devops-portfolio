@@ -1,0 +1,40 @@
+
+name: Portfolio CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  validate:
+    name: Validate Portfolio
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install HTML validator
+        run: npm install --global html-validate
+
+      - name: Validate HTML
+        run: html-validate index.html
+
+      - name: Check required files
+        run: |
+          test -f index.html
+          test -f style.css
+          echo "Required portfolio files exist."
+
+      - name: Display success message
+        run: echo "Portfolio CI checks completed successfully!"
